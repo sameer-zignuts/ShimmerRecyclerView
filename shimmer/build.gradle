@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
+//apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 30
@@ -33,4 +34,17 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }
 
-apply from: 'bintray-config.gradle'
+//apply from: 'bintray-config.gradle'
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication){
+                from components.release
+
+                groupId = 'com.github.sameer-zignuts'
+                artifactId = 'ShimmerRecyclerView'
+                version = '1.0'
+            }
+        }
+    }
+}
